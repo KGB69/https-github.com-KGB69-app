@@ -1,0 +1,22 @@
+{
+    "name": "Expense Tracker",
+    "short_name": "ExpenseApp",
+    "description": "Track your expenses and income",
+    "start_url": "/",
+    "display": "standalone", // Makes the app open in full-screen mode
+    "background_color": "#ffffff", // Background color for the splash screen
+    "theme_color": "#000000", // Color of the app’s UI elements
+    "icons": [
+      {
+        "src": "icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
