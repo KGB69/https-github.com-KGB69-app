@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input, button, select {
+            margin: 5px;
+        }
+        #charts {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 300px;
+        }
+        #expenseList {
+            margin-top: 20px;
+            text-align: left;
+        }
+        #expenseList table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #expenseList th, #expenseList td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #expenseList th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Enhanced Expense Tracker</h1>
+
+<div>
+    <label for="expenseAmount">Amount:</label>
+    <input type="number" id="expenseAmount" placeholder="Amount" required>
+
+    <label for="expenseCategory">Category:</label>
+    <input type="text" id="expenseCategory" placeholder="Category" required>
+
+    <button onclick="addExpense()">Add Expense</button>
+</div>
+
+<div>
+    <label for="viewMode">View:</label>
+    <select id="viewMode" onchange="updateCharts()">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+    </select>
+</div>
+
+<div>
+    <input type="date" id="calendar" onchange="jumpToDate()">
+    <button onclick="viewPreviousPeriod()">Previous</button>
+    <button onclick="viewNextPeriod()">Next</button>
+</div>
+
+<h3 id="currentDate"></h3>
+
+<div id="charts">
+    <div class="chart-container">
+        <canvas id="expensesChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="categoryPieChart"></canvas>
+    </div>
+</div>
+
+<div id="expenseList">
+    <h3>Expense List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="expenseTableBody"></tbody>
+    </table>
+    
+    <!-- Total Expenditure Section -->
+<div id="totalExpenditure">
+    <p><strong>Total Expenditure:</strong></p>
+    <p>Daily: $0.00</p>
+    <p>Weekly: $0.00</p>
+    <p>Monthly: $0.00</p>
+</div>
+  <!-- Link to Manifest File -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Add a meta tag for theme color -->
+<meta name="theme-color" content="#000000">
+
+<!-- Register the Service Worker (at the end of body) -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>  
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
