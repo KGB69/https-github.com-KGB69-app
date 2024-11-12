@@ -111,19 +111,23 @@
 <!-- Register the Service Worker (at the end of body) -->
 <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch((error) => {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/app/src/service-worker.js')  // Adjust the path here
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+
 </script>  
 </div>
 
-<script src="app.js"></script>
+<!-- Assuming index.html is in the root, adjust paths accordingly -->
+<script src="src/app.js"></script>
+<link rel="manifest" href="src/manifest.json">
+
 </body>
 </html>
