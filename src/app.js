@@ -3,6 +3,41 @@ let currentDate = new Date();
 const expensesChartCtx = document.getElementById('expensesChart').getContext('2d');
 const categoryPieChartCtx = document.getElementById('categoryPieChart').getContext('2d');
 
+let deferredPrompt;
+
+// Listen for the 'beforeinstallprompt' event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show the install button (if you have it in your HTML)
+  const installButton = document.getElementById('installButton');
+  if (installButton) {
+    installButton.style.display = 'block';
+  }
+});
+
+// Add click event listener for the Install button
+const installButton = document.getElementById('installButton');
+if (installButton) {
+  installButton.addEventListener('click', () => {
+    if (deferredPrompt) {
+      // Show the install prompt
+      deferredPrompt.prompt();
+      
+      // Wait for the user's response
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        // Reset the deferredPrompt variable, as it's only used once
+        deferredPrompt = null;
+      });
+    }
+  });
+}
+
 const expensesChart = new Chart(expensesChartCtx, {
     type: 'bar',
     data: { labels: [], datasets: [{ label: 'Expenses', data: [], backgroundColor: 'rgba(75, 192, 192, 0.2)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 1 }] },
